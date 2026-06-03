@@ -1,19 +1,26 @@
 
 
 Router# show ip interface brife
+```
+  abd
+```
 Router# show ip interface brife
+ 
 
 
 ## OSPF V2
 
-Router(config)# route ospf process_id
+`Router(config)# route ospf process_id`
 > create ospf process on router
+
+Router(config-route)# shutdown
+> shutownd
 
 Router(config-if)# ip ospf process_id area area_id
 > active ospf process on interface
 
 Router(config-route)# network ip_address wildcard_mask area area_number
-
+        abd
 Router(config-route)# passive-interface interface-id
 
 Router(config-route)# default information originate
@@ -32,10 +39,9 @@ Router# show ip ospf database
 
 Router# show ip ospf interface brief
 
-
-##Serial connection
+## Serial connection
 Router# show controllers interfaceid
-> =DCE(Data Communication Equitment) DTE(Data Transmission Equitmnt)
+> =DCE(Data Communication Equipment) DTE(Data Teriminal Equipment)
 Router(config-if)# clock rate rate_bps
 > =on DCE side
 
