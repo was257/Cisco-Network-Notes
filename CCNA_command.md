@@ -69,7 +69,7 @@ Instead of Router sub-interface.SVI configured ip address to be gateway of HOSTS
 router(config)# no interface g0/0.10 // delete sub-interface
 router(config)# default interface g0/0 // reset interface to default settings
 ```
-LAYERS SWTICH Will route the traffic inter VLans
+LAYER 3 SWTICH Will route the traffic inter VLans
 ```
 switch(config)# ip routing // enable layer 3 routing on switch
 switch(config-if)# no switchport //  set layer 2 switch port to layer 3 routed port
@@ -86,8 +86,60 @@ SVIs will replace trunk
 
 ----------------------------
 ## DTP Dynamic Trunking Protocol /VTP Vlan Trunking Protocol
+DTP/VTP is config on layer 2. while ROAS/SVIs on layer 3
+DTP is enabled by default on CISCO switch interface
+```
+switch(config-if)# switchport mode dynamic desirable/auto //negotiate access or trunk between ports of switchs.
+
+switch(config-if)# switchport nonegotiate // disable DTP ,It is a security recommendation to disable DTP
+switch(config-if)# switchport mode access // disable DTP too.
+```
+ISL is favored over 802.1q if both are supported
+
+VTP Vlan Trunking Protocol - [no recommended]
+configuring VLANs on a Central Switch, a VTP Server that other VTP Clients will synchronize VLAN DATABASE TO.
+design of large networks with many VLANs
+
+```
+Switch(config)# vtp domain <domain_name> // Same domain_name will sync dbase, or NULL domain_name will join one domain_name
+
+switch# show vtp status //VLAN Trunking Protocol, config vlan of a Central Swtich(server)
+
+switch(config)# vtp version 1/2/3
+
+switch(config)# vtp mode server/client/transparent
+
+```
+VTP v1,v2 don't support extends VLAN range 1006-4096
+
+VTP v3 support extends VLAN, client store VLAN database on NVRAM
+
+SERVER by default, increate Revision number, advertise latest version of vlan dbase on TRUNK interfaces.
+
+CLIENT syn to Highest revision number , advertises vlan dbase and forward vtp advertisements to other client over TRUNK interfaces
+
+TRANSPARENT do no sync VLAN Dbase,maintain own V Dbase in NVRAM, wouldn't advertise, wouldn't forward advertisements.
+
+VTPdomain
 
 
+--------------------------
+## STP Spanning Tree Protocol
+avoid Broadcast storm
+
+ROOT-DESIGNATED 
+DESIGNATED
+
+SPANNING-TREE
+
+---------------------------------
+
+
+Dynamic Routing
+
+RIP
+
+EIGRP
 
 ----------------------------
 ## OSPF V2
